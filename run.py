@@ -53,12 +53,14 @@ if not r.ping():
     print("Redis not connected.")
     exit()
 
-prompt_answer = input("Established connection to PlanetScale and Upstash. Do you want to start the migration?\n(y/n):")
-if not prompt_answer.lower() in ["y","yes"]:
-    print("Migration cancelled.")
-    exit()
-else:
-    print("Starting migration...")
+headless = os.getenv("HEADLESS")
+if not headless:
+    prompt_answer = input("Established connection to PlanetScale and Upstash. Do you want to start the migration?\n(y/n):")
+    if not prompt_answer.lower() in ["y","yes"]:
+        print("Migration cancelled.")
+        exit()
+    else:
+        print("Starting migration...")
 
 cursor = m.cursor(dictionary=True)
 
